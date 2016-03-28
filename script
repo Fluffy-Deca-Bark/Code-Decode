@@ -1,0 +1,22 @@
+#!/bin/bash
+
+clear
+
+echo "running script..."
+
+gcc -Wall -m32 -o code-decode code.c
+./code-decode
+
+# clear
+
+echo ""
+echo "cat:"
+cat output.txt
+
+echo ""
+echo ""
+echo "hexdump -C:"
+hexdump -C output.txt
+
+echo ""
+
