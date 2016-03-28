@@ -1,4 +1,5 @@
 #include <stdio.h>
+#define LONG long long
 
 void dump (void* p, int n)
 {
@@ -53,7 +54,7 @@ int code (char* desc, void* v, FILE* f)
 		if (desc[i] == 'i')
 			n = (int) *((int*)v+pos);
 		else
-			n = (long) *((long*)v+pos);
+			n = (LONG) *((LONG *)v+pos);
 
 		printf ("v = \t\t\t%p\n", v);
 		printf ("pos = \t\t\t%8x\n", pos);
@@ -61,7 +62,7 @@ int code (char* desc, void* v, FILE* f)
 		if (desc[i] == 'i')
 			printf ("*((int*)v+pos)=\t%4d\n", (int) *((int*)v+pos));
 		else
-			printf ("*((int*)v+pos)=\t%4ld\n", (long) *((long*)v+pos));
+			printf ("*((long*)v+pos)=\t%4lld\n", (LONG) *((LONG*)v+pos));	// %4ld
 		printf ("n = %x (oct)\t%d (dec)\n", n, n);
 
 		unsigned int z = n << 1;
@@ -80,6 +81,11 @@ int code (char* desc, void* v, FILE* f)
 		{
 			pos += 1;	
 		};
+	
+		//for (int j=0; j<((desc[i]=='i')?4:8); j++)
+		{
+			
+		};
 
 
 	}; // for
@@ -91,9 +97,9 @@ typedef struct MyStruct
 {
 	int i1;
 	int i2;
-	long I1;
-	long I2;
-	long I3;
+	LONG I1;
+	LONG I2;
+	LONG I3;
 } myStruct;
 
 int main ()
@@ -106,7 +112,7 @@ int main ()
 	
 	code (str, &m, file);
 
-	printf ("sizeof(long) = %d\nsizeof(int) =  %d\n\n\n", sizeof(long), sizeof(int));
+	printf ("sizeof(long) = %d\nsizeof(int) =  %d\n\n\n", (int) sizeof(LONG), (int) sizeof(int));
 	fclose (file);
 
 	return 0;
